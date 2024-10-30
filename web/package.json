@@ -15,7 +15,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:check": "drizzle-kit check",
     "db:up": "drizzle-kit up",
-    "db:studio": "drizzle-kit studio --port 8080 --verbose"
+    "db:studio": "drizzle-kit studio --port 8000 --verbose"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
