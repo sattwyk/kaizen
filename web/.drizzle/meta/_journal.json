@@ -8,6 +8,13 @@
       "when": 1730280451022,
       "tag": "0000_true_genesis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1730282989905,
+      "tag": "0001_tiny_randall_flagg",
+      "breakpoints": true
     }
   ]
 }
