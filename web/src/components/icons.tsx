@@ -1,3 +1,5 @@
+import { Loader } from "lucide-react";
+
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
@@ -17,4 +19,5 @@ export const Icons = {
       />
     </svg>
   ),
+  spinner: Loader,
 };
