@@ -1,21 +1,20 @@
-"use client";
-
-import { Icons } from "./icons";
-import { Button } from "./ui/button";
-import { SidebarTrigger } from "./ui/sidebar";
+import { useAuth } from "@/lib/auth-actions";
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ConnectWithGoogleButton } from "./connect-with-google-button";
+import { SidebarTrigger } from "./ui/sidebar";
 
-export function LandingPage() {
+export async function LandingPage() {
+  const { isAuthenticated } = await useAuth();
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <header className="flex items-center justify-between p-4">
         <SidebarTrigger />
-        <Button variant="outline">
-          <Icons.google className="mr-2 h-4 w-4" />
-          Connect with Google
-        </Button>
+        {!isAuthenticated && (
+          <ConnectWithGoogleButton size="lg" variant="outline" />
+        )}
       </header>
 
       <main className="flex flex-grow flex-col items-center justify-center px-4">
