@@ -1,5 +1,4 @@
 services:
-
   db:
     image: ghcr.io/libsql/sqld:latest
     container_name: kaizen-db
@@ -10,6 +9,36 @@ services:
       - sqld_data:/var/lib/sqld
     environment:
       TURSO_DATABASE_PATH: /var/lib/sqld
+    networks:
+      - app_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: kaizen-rabbitmq
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # Management UI port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_logs:/var/log/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER:-guest}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS:-guest}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST:-/}
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app_network
 
 volumes:
   sqld_data:
+  rabbitmq_data:
+  rabbitmq_logs:
+
+networks:
+  app_network:
+    driver: bridge
